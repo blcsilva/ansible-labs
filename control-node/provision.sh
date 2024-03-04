@@ -1,11 +1,17 @@
 #/bin/bash
 
-sudo yum -y install epel-release
-echo "Inicio da instalação - Ansible"
-sudo yum -y install ansible
-cat <<EOT >> /etc/hosts
-192.168.1.2 control-node
-192.168.1.3 app01
-192.168.1.4 db01
-EOT
+FROM centos
 
+cd /etc/yum.repos.d/
+sudo sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
+sudo sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+
+sudo yum -y install epel-release
+
+
+#echo "Inicio da instalação - Ansible"
+#sudo cat <<EOT >> /etc/ansible/hosts
+#10.10.0.6 servidor01
+#EOT
+
+#sh vagrant@10.10.0.6 | ~/.ssh/id_rsa.pub |"mkdir -p ~/.ssh && touch ~/.ssh/authorized_keys && chmod -R go= ~/.ssh && cat >> ~/.ssh/authorized_keys"
